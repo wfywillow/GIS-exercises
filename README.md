@@ -1,2 +1,2 @@
-# GIS-excercises
-Notes and codes of exercises for GIS learning
+# GIS-exercises
+Notes and codes of exercises for learning GIS with Python and ArcGIS
