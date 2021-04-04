@@ -20,7 +20,7 @@
 5. 通过Spatial Join（参见exercise#3）找出各个骑行终点周边的POI。
 6. 计算各个骑行终点周边POI的个数。
 7. 使用骑行终点数据和纽约市地区边界数据制作地图。
-> 要求：（1）代表骑行终点的点的颜色越深表示其周边的该类POI越多；（2）用legend或colorbar说明点的颜色所代表的数值；（3）纽约市地区边界作为底图，方便看图的人对骑行终点的位置有大体的感知。
+> 要求：（1）代表骑行终点的点的颜色越深表示其周边的该类POI越多；（2）用legend或colorbar说明点的颜色所代表的数值；（3）纽约市地区边界作为底图，方便地图读者对骑行终点的位置有大体的感知。
 
 ## 材料
 ### OMSnx包
@@ -31,11 +31,11 @@
 
 ### 制作地图
 1. [GeoPandas Mapping and Plotting Tools](https://geopandas.org/docs/user_guide/mapping.html)
-2. [GeoPandas手册geopandas.GeoDataFrame.plot](https://geopandas.org/docs/reference/api/geopandas.GeoDataFrame.plot.html)
-> 注意geopandas.GeoDataFrame.plot如何添加colorbar或legend。
+2. [GeoPandas手册geopandas.GeoDataFrame.plot()](https://geopandas.org/docs/reference/api/geopandas.GeoDataFrame.plot.html)
+> 注意geopandas.GeoDataFrame.plot()如何添加colorbar或legend。
 
 ### Nearest Neighbour Analysis
-是否需要用到Nearest Neighbour Analysis取决于确定radius的方法。当然可以凭自己的主观喜好确定radius，也可以选择一个更客观的标准。
+是否需要用到Nearest Neighbour Analysis取决于确定radius的方法。当然可以基于自己的主观经验确定radius，不过也可以选择一个更客观的标准。
 
 有一种可行的方法是：针对每一个骑行终点，找到与它最近的其他骑行终点，计算最近距离，考察所有最近距离的分布，选择均值或中位数的一半作为radius。
 
@@ -45,13 +45,13 @@
 
 ## 注意事项
 ### 坐标系统
-由于这项任务的核心是寻找骑行终点周边一定长度距离内的POI，也就是涉及到以长度衡量的距离问题，所以应使用一个适合纽约市的、可以保持距离的PCS（projected coordinated system），比如WGS84/UTM zone 18N
+由于这项任务的核心是寻找骑行终点周边一定长度距离内的POI，也就是涉及到以长度衡量的距离问题，所以应使用一个适合纽约市的、可以保持距离的PCS（projected coordinated system），比如WGS 84/UTM zone 18N。
 
 所有的数据——单车骑行终点、POI、地区边界——都需要转化至这一坐标系统。查询数据当前的坐标系统和转换坐标系统的方法参见[Tutorial Lesson 2 - Map projections](https://automating-gis-processes.github.io/site/notebooks/L2/projections.html)
 
 ### 地图的extent
 单车骑行终点所覆盖的地理范围远小于整个纽约市的地理范围；如果不加限制的话，制作出的地图会显示出整个纽约市，而我们所关心的单车骑行终点只占据地图的很小一部分，难以清晰地显示。
 
-所以制作地图时要限制x方向和y方向地最大值和最小值（也就是东、西、南、北的边界）。
+所以制作地图时要限制x方向和y方向的最大值和最小值（也就是东、西、南、北的边界）。
 
-当然，另一种更麻烦的方法是将纽约市地区边界数据clip至和骑行终点数据的范围（覆盖所有点的最小矩形或者convex hull）相同，然后再作图。
+当然，另一种更麻烦的方法是，将纽约市地区边界数据clip至和骑行终点数据的范围（覆盖所有点的最小矩形或者convex hull）相同，然后再作图。
